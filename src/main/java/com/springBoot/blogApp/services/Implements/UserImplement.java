@@ -6,11 +6,13 @@ import com.springBoot.blogApp.payloads.UserDto;
 import com.springBoot.blogApp.repositories.UserRepository;
 import com.springBoot.blogApp.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Service
 public class UserImplement implements UserService {
     @Autowired
     private UserRepository userRepository;
@@ -47,11 +49,11 @@ public class UserImplement implements UserService {
         // or
         User user = this.userRepository.findById(userId)
                 .orElseThrow(()-> new ResourceNotFoundException("User"," Id",userId));
-        user.setId(userDto.getId());
         user.setName(userDto.getName());
         user.setEmail(userDto.getEmail());
         user.setPassword(userDto.getPassword());
         user.setAbout(userDto.getAbout());
+        System.out.println("Data after Update ::"+user);
         User upDatedUser =this.userRepository.save(user);
         return this.userToDto(upDatedUser);
     }
