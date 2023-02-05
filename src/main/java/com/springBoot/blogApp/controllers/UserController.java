@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.nio.file.Path;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -67,7 +68,7 @@ public class UserController {
     @DeleteMapping("/{userId}")
     public ResponseEntity<ApiResponse> deleteUser(@PathVariable Integer userId) {
         this.userService.deleteUserById(userId);
-        return new ResponseEntity<>(new ApiResponse("User Deleted Successfully", true),HttpStatus.OK);
+        return new ResponseEntity<>(new ApiResponse("User Deleted Successfully", true,HttpStatus.OK.value(), new Date(),"userID "+userId+" deleted"),HttpStatus.OK);
     }
 
 
