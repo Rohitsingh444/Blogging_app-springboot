@@ -5,6 +5,7 @@ import com.springBoot.blogApp.exceptions.ResourceNotFoundException;
 import com.springBoot.blogApp.payloads.UserDto;
 import com.springBoot.blogApp.repositories.UserRepository;
 import com.springBoot.blogApp.services.UserService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +17,9 @@ import java.util.stream.Collectors;
 public class UserImplement implements UserService {
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private ModelMapper modelMapper;
     @Override
     public UserDto createUser(UserDto userDto) {
         User user = this.dtoToUser(userDto);
@@ -71,22 +75,24 @@ public class UserImplement implements UserService {
     //user = user data which we are storing in DB (both are same ype of data)
     // this method convert userDto data to user
     public User dtoToUser(UserDto userDto){   // user for post and pull
-        User user = new User();
-        user.setId(userDto.getId());
-        user.setName(userDto.getName());
-        user.setEmail(userDto.getEmail());
-        user.setPassword(userDto.getPassword());
-        user.setAbout(userDto.getAbout());
+//        User user = new User();
+//        user.setId(userDto.getId());
+//        user.setName(userDto.getName());
+//        user.setEmail(userDto.getEmail());
+//        user.setPassword(userDto.getPassword());
+//        user.setAbout(userDto.getAbout());
+        User user = this.modelMapper.map(userDto,User.class);  //modelMapper use for coput userDto object data to user object
         return user;
     }
 
     public UserDto userToDto(User user){
-        UserDto userDto = new UserDto();
-        userDto.setId(user.getId());
-        userDto.setName(user.getName());
-        userDto.setEmail(user.getEmail());
-        userDto.setPassword(user.getPassword());
-        userDto.setAbout(user.getAbout());
-        return userDto;
+        return this.modelMapper.map(user,UserDto.class);
+//        UserDto userDto = new UserDto();
+//        userDto.setId(user.getId());
+//        userDto.setName(user.getName());
+//        userDto.setEmail(user.getEmail());
+//        userDto.setPassword(user.getPassword());
+//        userDto.setAbout(user.getAbout());
+
     }
 }
