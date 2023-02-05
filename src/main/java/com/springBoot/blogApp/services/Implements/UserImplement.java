@@ -62,13 +62,11 @@ public class UserImplement implements UserService {
         return this.userToDto(upDatedUser);
     }
     @Override
-    public Void deleteUserById(int userId){
+    public void deleteUserById(int userId){
         //this.userRepository.delete(this.userRepository.findById(userId).get());
         User user = this.userRepository.findById(userId)
                 .orElseThrow(()-> new ResourceNotFoundException("User"," Id",userId));
         this.userRepository.delete(user);
-
-        return null;
     }
 
     //userDto = which we are passing through payload
@@ -81,7 +79,7 @@ public class UserImplement implements UserService {
 //        user.setEmail(userDto.getEmail());
 //        user.setPassword(userDto.getPassword());
 //        user.setAbout(userDto.getAbout());
-        User user = this.modelMapper.map(userDto,User.class);  //modelMapper use for coput userDto object data to user object
+        User user = this.modelMapper.map(userDto,User.class);  //modelMapper library use for copy userDto object data to user object
         return user;
     }
 
