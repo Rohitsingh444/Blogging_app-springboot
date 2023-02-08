@@ -13,7 +13,7 @@ public class ResourceNotFoundException extends RuntimeException {    // custom e
 
     //constructor using fields
     public ResourceNotFoundException(String resourceName, String fieldName, long fieldValue) {
-      super(String.format("%s not found with %s : %s", resourceName, fieldName, fieldValue)); //super(message)
+      super(String.format("%s not found with %s : %s", resourceName, fieldName, fieldValue)); //super(message) // call GlobalException class
       this.resourceName = resourceName;
       this.fieldName = fieldName;
       this.filedValue = fieldValue;

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.nio.file.Path;
 import java.util.Date;
 import java.util.List;
@@ -29,7 +30,7 @@ public class UserController {
 
     //POST-create user
     @PostMapping("/add")
-    public ResponseEntity<UserDto> addUser(@RequestBody UserDto userDto){  //ResponseEntity use for configure http response
+    public ResponseEntity<UserDto> addUser(@Valid @RequestBody UserDto userDto){  //ResponseEntity use for configure http response
        UserDto addedUserDto = this.userService.createUser(userDto);
         return new ResponseEntity<>(addedUserDto, HttpStatus.CREATED);
     }
@@ -51,7 +52,7 @@ public class UserController {
 
     //PUT- update user
     @PutMapping("/{userId}")
-    public ResponseEntity<UserDto> updateUser(@RequestBody UserDto userDto, @PathVariable Integer userId){
+    public ResponseEntity<UserDto> updateUser(@Valid @RequestBody UserDto userDto, @PathVariable Integer userId){
         System.out.println("Update User details: "+ userDto);
         UserDto updatedUser = this.userService.updateUserById(userDto, userId);
       //  return  new ResponseEntity<>(updatedUser,HttpStatus.OK);
